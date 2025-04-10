@@ -48,11 +48,11 @@ scrape_configs:<br />
     scrape_timeout: 30s<br />
     scheme: http<br />
     static_configs:<br />
-    - targets: ["10.8.200.138:9899"]<br />
+    - targets: ["your_host:9899"]<br />
       labels:<br />
         "service": "postgres"<br />
         "instance": "pg_master"<br />
-        "host": "10.8.200.138"<br />
+        "host": "your_host"<br />
         "Business_Critical": "Medium"<br />
         "Team": "Postgres"<br />
 
