@@ -40,18 +40,18 @@ WantedBy=multi-user.target
 
 **Example for prometheus config**<br />
 <pre>
-scrape_configs:<br />
-  - job_name: pg_probackup<br />
-    scrape_interval: 30s<br />
-    scrape_timeout: 30s<br />
-    scheme: http<br />
-    static_configs:<br />
-    - targets: ["your_host:9899"]<br />
-      labels:<br />
-        "service": "postgres"<br />
-        "instance": "your_host"<br />
-        "host": "your_host"<br />
-        "Business_Critical": "Medium"<br />
-        "Team": "Postgres"<br />
+scrape_configs:
+  - job_name: pg_probackup
+    scrape_interval: 30s
+    scrape_timeout: 30s
+    scheme: http
+    static_configs:
+    - targets: ["your_host:9899"]
+      labels:
+        "service": "postgres"
+        "instance": "your_host"
+        "host": "your_host"
+        "Business_Critical": "Medium"
+        "Team": "Postgres"
 
 </pre>
