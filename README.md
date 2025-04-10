@@ -22,23 +22,21 @@ Metrics are available under _http://your_host:port/metrics_<br />
 
 **Example service file for ubuntu linux:**<br />
 _sudo nano /etc/systemd/system/pg_probackup_exporter.service_<br />
-<br />
-[Service]<br />
-Type=simple<br />
-User=postgres<br />
-Group=postgres<br />
-Environment=PG_PROBACKUP_COMMAND='/usr/bin/pg_probackup-17'<br />
-Environment=PG_PROBACKUP_PATH='/mnt/backup'<br />
-<br />
-ExecStart=/usr/bin/python3 /usr/local/bin/pg_probackup_exporter.py<br />
-KillMode=control-group<br />
-TimeoutSec=5<br />
-Restart=on-failure<br />
-RestartSec=10<br />
-<br />
-[Install]<br />
-WantedBy=multi-user.target<br />
-
+<pre>
+[Service]
+Type=simple
+User=postgres
+Group=postgres
+Environment=PG_PROBACKUP_COMMAND='/usr/bin/pg_probackup-17'
+Environment=PG_PROBACKUP_PATH='/mnt/backup'
+ExecStart=/usr/bin/python3 /usr/local/bin/pg_probackup_exporter.py
+KillMode=control-group
+TimeoutSec=5
+Restart=on-failure
+RestartSec=10
+[Install]
+WantedBy=multi-user.target
+</pre>
 
 **Example for prometheus config**<br />
 <pre>
