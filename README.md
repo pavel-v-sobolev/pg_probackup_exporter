@@ -42,12 +42,12 @@ WantedBy=multi-user.target<br />
 
 **Example for prometheus config**<br />
 scrape_configs:<br />
-  - job_name: pg_probackup<br />
+  \- job_name: pg_probackup<br />
     scrape_interval: 30s<br />
     scrape_timeout: 30s<br />
     scheme: http<br />
     static_configs:<br />
-    - targets: ["10.8.200.138:9899"]<br />
+    \- targets: ["10.8.200.138:9899"]<br />
       labels:<br />
         "service": "postgres"<br />
         "instance": "pg_master"<br />
