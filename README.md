@@ -51,7 +51,7 @@ scrape_configs:<br />
     - targets: ["your_host:9899"]<br />
       labels:<br />
         "service": "postgres"<br />
-        "instance": "pg_master"<br />
+        "instance": "your_host"<br />
         "host": "your_host"<br />
         "Business_Critical": "Medium"<br />
         "Team": "Postgres"<br />
