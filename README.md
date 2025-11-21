@@ -17,6 +17,8 @@ It exports pg_probackup metrics as a web service in prometheus format.
     PG_PROBACKUP_EXPORTER_PORT = '9899' 
  3) path to backup folder e.g.
     PG_PROBACKUP_PATH = '/mnt/backup'
+ 4) path to minio config (optionally)
+    PG_PROBACKUP_S3_MINIO_CONFIG = '/etc/pg_probackup/s3.config'
 
 Metrics are available under _http://your_host:port/metrics_<br />
 
@@ -29,6 +31,7 @@ User=postgres
 Group=postgres
 Environment=PG_PROBACKUP_COMMAND='/usr/bin/pg_probackup-17'
 Environment=PG_PROBACKUP_PATH='/mnt/backup'
+Environment=PG_PROBACKUP_S3_MINIO_CONFIG='/etc/pg_probackup/s3.config'
 ExecStart=/usr/bin/python3 /usr/local/bin/pg_probackup_exporter.py
 KillMode=control-group
 TimeoutSec=5

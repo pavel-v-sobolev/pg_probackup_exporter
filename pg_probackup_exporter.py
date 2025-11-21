@@ -15,7 +15,8 @@ To use this program, you need to set 3 environment vars:
     PG_PROBACKUP_EXPORTER_PORT = '9899' 
  3) path to backup folder e.g.
     PG_PROBACKUP_PATH = '/mnt/backup'
-
+ 4) path to S3 configuration file (optionally)
+    PG_PROBACKUP_S3_MINIO_CONFIG = '/etc/pg_probackup/s3.config'
 Metrics are available under http://your_host:port/metrics
 
 """
@@ -33,6 +34,8 @@ import sys
 cmd = os.environ.get('PG_PROBACKUP_COMMAND')
 
 backup_path = os.environ.get('PG_PROBACKUP_PATH')
+
+minio_config_path = os.environ.get('PG_PROBACKUP_S3_MINIO_CONFIG')
 
 if cmd is None:
     print('ERROR: Need PG_PROBACKUP_COMMAND environment varible')
@@ -73,6 +76,8 @@ def metrics_folder():
     
     # call pg_probackup_command
     show_cmd = f"""{cmd} show --backup-path="{backup_path}" --format=json"""
+    if minio_config_path:
+        show_cmd = f"{show_cmd} --s3=minio --s3-config-file={minio_config_path}"
     cmd_result = os.popen(show_cmd).read()
     
     try: 
@@ -93,6 +98,8 @@ def metrics_folder():
             instance = d['instance']
             
             config_cmd =  f"""{cmd} show-config  --backup-path="{backup_path}" --format=json --instance={instance}"""
+            if minio_config_path:
+                config_cmd = f"{config_cmd} --s3=minio --s3-config-file={minio_config_path}"
             cmd_result = os.popen(config_cmd).read()
             try:
                 config_data = json.loads(cmd_result)
