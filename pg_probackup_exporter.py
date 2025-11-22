@@ -54,6 +54,7 @@ fields = {'id':'id',
           'compress-alg':'compress_alg',
           'start-time':'start_time',
           'end-time':'end_time',
+          'recovery-time':'recovery_time',
           'retention-redundancy':'retention_redundancy',
           'retention-window':'retention_window'
           }
@@ -87,12 +88,12 @@ def metrics_folder():
     
     res_figures = {}    
     for fig in figures:
-       	res_figures[fig] = f"# HELP {figures[fig]}\n"
-       	res_figures[fig] += f"# TYPE postgres_backup_{figures[fig]} gauge\n"
+        res_figures[fig] = f"# HELP {figures[fig]}\n"
+        res_figures[fig] += f"# TYPE postgres_backup_{figures[fig]} gauge\n"
                 
     for d in data:
-    	n = 0
-    	for b in d['backups']:
+        n = 0
+        for b in d['backups']:
             start_time = datetime.strptime(b['start-time'][0:19],'%Y-%m-%d %H:%M:%S')
             status = b['status']
             instance = d['instance']
@@ -111,11 +112,9 @@ def metrics_folder():
             
             duration_minutes = 0
 
-
-
-            if 'recovery-time' in b:
-    	        recovery_time = datetime.strptime(b['recovery-time'][0:19],'%Y-%m-%d %H:%M:%S')
-    	        duration_minutes = round((recovery_time - start_time).seconds/60,2)
+            if 'end-time' in b:
+                end_time = datetime.strptime(b['end-time'][0:19],'%Y-%m-%d %H:%M:%S')
+                duration_minutes = round((end_time - start_time).seconds/60,2)
     	    
             for fig in figures:
                 res_figures[fig] += "postgres_backup_" + figures[fig] + "{service_id=\"" + instance + "\""
